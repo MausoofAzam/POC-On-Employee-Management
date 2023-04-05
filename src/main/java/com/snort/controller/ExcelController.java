@@ -23,6 +23,8 @@ import com.snort.entity.Form;
 import com.snort.excelhelper.MyExcelHelper;
 import com.snort.service.ExcelService;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 //@RestController
 @CrossOrigin("*")
@@ -36,7 +38,7 @@ public class ExcelController {
 	public String showForm(Model model) {
 		Form form = new Form();
 		model.addAttribute("form", form);
-
+		log.info("ExcelController :public String showForm(Model model) method ");
 		List<String> practice = Arrays.asList("JAVA", ".NET", "TESTING");
 		model.addAttribute("practice", practice);
 		
@@ -67,7 +69,6 @@ public class ExcelController {
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
 		if (MyExcelHelper.checkExcelFormat(file)) {
 			// true
-			
 			this.excelService.save(file);
 			return ResponseEntity.ok(Map.of("message", "File is uploaded and data is saved to db"));
 

@@ -12,9 +12,9 @@
 			background-color: #e6ebef;
 		}
 
-		h2 {
-			background-color: #8ebf42;
-		}
+		<!--h2 {
+			background-color: rgb(255, 128, 64);
+		}-->
 
 		p {
 			background-color: #1c87c9;
@@ -32,16 +32,19 @@
 		a:active {
 			background-color: rgb(255, 128, 128);
 		}
+		#abc{
+			background-color: rgb(187, 199, 184);
+		}
 	</style>
 </head>
 <spN <body>
 
 	<div class="container">
-		<h3> Hii </h3><br /> <br />
+		<h3> Hii </h3>
 
-		Welcome :<br>
-		<br><span sec:authentication="principal.username"> User </span>
-		<span sec:authentication="principal.authorities"> Roles </span>
+		<h2 id="abc"><b>Welcome :</b></h2>
+		<b><span  sec:authentication="principal.authorities"> Roles </span></b><br>
+		<b><span sec:authentication="principal.username"> User </span></b>
 	</div>
 	<br !-- create navigation bar ( header) -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -52,7 +55,7 @@
 					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#" th:href="@{/}">Employee Management System</a>
+				<a class="navbar-brand" href="#" th:href="@{/}"><b>Employee Management System</b></a>
 			</div>
 
 
@@ -64,11 +67,8 @@
 		</div>
 	</nav>
 
-	<br>
-	<br>
-
 	<div class="container my-1">
-		<h1>List of Employees:</h1>
+		<h1><b>List of Employees:</b></h1>
 
 		<form action="/search">
 			<div >
@@ -92,9 +92,11 @@
 				<span class="d-inline-block">
 					<button class="btn btn-sm btn-primary col-12" type="submit">Search</button>
 				</span>
-				<span class="px-2" style="padding:0px 20px;">
+				<!--<span class="px-2" style="padding:0px 20px;">
 					<a href="/register">Add Questions</a>
-				</span>
+				</span>-->
+					<a sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_SUPERADMIN')"
+						th:href="@{/register}" class="btn btn-danger" display="none">Add Questions</a>
 
 				<span><a th:href="@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3"> Add Employee </a>
 					<br /><br />
@@ -153,6 +155,8 @@
 					<a sec:authorize="hasAnyAuthority('ROLE_SUPERADMIN')"
 						th:href="@{/deleteEmployee/{id}(id=${employee.id})}" class="btn btn-danger">Delete</a>
 				</td>
+				
+				
 			</tr>
 		</tbody>
 	</table>
